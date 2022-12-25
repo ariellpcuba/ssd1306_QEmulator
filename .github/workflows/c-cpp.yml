@@ -14,6 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: install dependencies
-      run: sudo apt install -y libcppunit-dev qtcreator qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x
+      run: sudo apt install -y libcppunit-dev qtcreator libqt5webkit5-dev  qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
     - name: make install
       run: qmake SSD1603_Emulator.pro && make
