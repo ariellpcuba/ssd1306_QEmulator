@@ -15,11 +15,5 @@ jobs:
     - uses: actions/checkout@v3
     - name: install dependencies
       run: sudo apt install -y libcppunit-dev qtcreator
-    - name: configure
-      run: ./configure
-    - name: make
-      run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
+    - name: make install
       run: qmake SSD1603_Emulator.pro && make
