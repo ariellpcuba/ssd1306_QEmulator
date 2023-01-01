@@ -16,4 +16,4 @@ jobs:
     - name: install dependencies
       run: sudo apt install -y libcppunit-dev qtcreator libqt5webkit5-dev  qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
     - name: make install
-      run: qmake SSD1603_Emulator.pro && make
+      run: qt5-qmake SSD1306_Emulator.pro  && make
