@@ -13,13 +13,14 @@ CXX           = g++
 DEFINES       = -DQT_DEPRECATED_WARNINGS -DBUILDTIME=\"19:53:03\" -DBUILDDATE=\"27.09.18\" -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED
 CFLAGS        = -m64 -pipe -g -Wall -W -D_REENTRANT $(DEFINES)
 CXXFLAGS      = -m64 -pipe -g -Wall -W -D_REENTRANT $(DEFINES)
-INCPATH       = -I/usr/share/qt4/mkspecs/linux-g++-64 -I. -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4 -I. -I.
+INCPATH       = -I/usr/share/qt5/mkspecs/linux-g++-64 -I. -I/usr/include/qt5/QtCore -I/usr/include/qt5/QtGui -I/usr/include/qt5 -I. -I.
 LINK          = g++
 LFLAGS        = -m64
 LIBS          = $(SUBLIBS)  -L/usr/lib/x86_64-linux-gnu -lQtGui -lQtCore -lpthread 
 AR            = ar cqs
 RANLIB        = 
-QMAKE         = /usr/lib/x86_64-linux-gnu/qt4/bin/qmake
+#QMAKE         = /usr/lib/x86_64-linux-gnu/qt4/bin/qmake
+QMAKE         = /usr/bin/qt5-qmake
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 COPY          = cp -f
@@ -60,30 +61,30 @@ OBJECTS       = main.o \
 		moc_mainwindow.o \
 		qrc_emulator.o \
 		qrc_about.o
-DIST          = /usr/share/qt4/mkspecs/common/unix.conf \
-		/usr/share/qt4/mkspecs/common/linux.conf \
-		/usr/share/qt4/mkspecs/common/gcc-base.conf \
-		/usr/share/qt4/mkspecs/common/gcc-base-unix.conf \
-		/usr/share/qt4/mkspecs/common/g++-base.conf \
-		/usr/share/qt4/mkspecs/common/g++-unix.conf \
-		/usr/share/qt4/mkspecs/qconfig.pri \
-		/usr/share/qt4/mkspecs/features/qt_functions.prf \
-		/usr/share/qt4/mkspecs/features/qt_config.prf \
-		/usr/share/qt4/mkspecs/features/exclusive_builds.prf \
-		/usr/share/qt4/mkspecs/features/default_pre.prf \
-		/usr/share/qt4/mkspecs/features/debug.prf \
-		/usr/share/qt4/mkspecs/features/default_post.prf \
-		/usr/share/qt4/mkspecs/features/shared.prf \
-		/usr/share/qt4/mkspecs/features/unix/gdb_dwarf_index.prf \
-		/usr/share/qt4/mkspecs/features/warn_on.prf \
-		/usr/share/qt4/mkspecs/features/qt.prf \
-		/usr/share/qt4/mkspecs/features/unix/thread.prf \
-		/usr/share/qt4/mkspecs/features/moc.prf \
-		/usr/share/qt4/mkspecs/features/resources.prf \
-		/usr/share/qt4/mkspecs/features/uic.prf \
-		/usr/share/qt4/mkspecs/features/yacc.prf \
-		/usr/share/qt4/mkspecs/features/lex.prf \
-		/usr/share/qt4/mkspecs/features/include_source_dir.prf \
+DIST          = /usr/share/qt5/mkspecs/common/unix.conf \
+		/usr/share/qt5/mkspecs/common/linux.conf \
+		/usr/share/qt5/mkspecs/common/gcc-base.conf \
+		/usr/share/qt5/mkspecs/common/gcc-base-unix.conf \
+		/usr/share/qt5/mkspecs/common/g++-base.conf \
+		/usr/share/qt5/mkspecs/common/g++-unix.conf \
+		/usr/share/qt5/mkspecs/qconfig.pri \
+		/usr/share/qt5/mkspecs/features/qt_functions.prf \
+		/usr/share/qt5/mkspecs/features/qt_config.prf \
+		/usr/share/qt5/mkspecs/features/exclusive_builds.prf \
+		/usr/share/qt5/mkspecs/features/default_pre.prf \
+		/usr/share/qt5/mkspecs/features/debug.prf \
+		/usr/share/qt5/mkspecs/features/default_post.prf \
+		/usr/share/qt5/mkspecs/features/shared.prf \
+		/usr/share/qt5/mkspecs/features/unix/gdb_dwarf_index.prf \
+		/usr/share/qt5/mkspecs/features/warn_on.prf \
+		/usr/share/qt5/mkspecs/features/qt.prf \
+		/usr/share/qt5/mkspecs/features/unix/thread.prf \
+		/usr/share/qt5/mkspecs/features/moc.prf \
+		/usr/share/qt5/mkspecs/features/resources.prf \
+		/usr/share/qt5/mkspecs/features/uic.prf \
+		/usr/share/qt5/mkspecs/features/yacc.prf \
+		/usr/share/qt5/mkspecs/features/lex.prf \
+		/usr/share/qt5/mkspecs/features/include_source_dir.prf \
 		SSD1603_Emulator.pro
 QMAKE_TARGET  = SSD1603_Emulator
 DESTDIR       = 
@@ -117,61 +118,61 @@ $(TARGET): ui_emulator.h ui_aboutdialog.h ui_mainwindow.h $(OBJECTS)
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 	{ test -n "$(DESTDIR)" && DESTDIR="$(DESTDIR)" || DESTDIR=.; } && test $$(gdb --version | sed -e 's,[^0-9][^0-9]*\([0-9]\)\.\([0-9]\).*,\1\2,;q') -gt 72 && gdb --nx --batch --quiet -ex 'set confirm off' -ex "save gdb-index $$DESTDIR" -ex quit '$(TARGET)' && test -f $(TARGET).gdb-index && objcopy --add-section '.gdb_index=$(TARGET).gdb-index' --set-section-flags '.gdb_index=readonly' '$(TARGET)' '$(TARGET)' && rm -f $(TARGET).gdb-index || true
 
-Makefile: SSD1603_Emulator.pro  /usr/share/qt4/mkspecs/linux-g++-64/qmake.conf /usr/share/qt4/mkspecs/common/unix.conf \
-		/usr/share/qt4/mkspecs/common/linux.conf \
-		/usr/share/qt4/mkspecs/common/gcc-base.conf \
-		/usr/share/qt4/mkspecs/common/gcc-base-unix.conf \
-		/usr/share/qt4/mkspecs/common/g++-base.conf \
-		/usr/share/qt4/mkspecs/common/g++-unix.conf \
-		/usr/share/qt4/mkspecs/qconfig.pri \
-		/usr/share/qt4/mkspecs/features/qt_functions.prf \
-		/usr/share/qt4/mkspecs/features/qt_config.prf \
-		/usr/share/qt4/mkspecs/features/exclusive_builds.prf \
-		/usr/share/qt4/mkspecs/features/default_pre.prf \
-		/usr/share/qt4/mkspecs/features/debug.prf \
-		/usr/share/qt4/mkspecs/features/default_post.prf \
-		/usr/share/qt4/mkspecs/features/shared.prf \
-		/usr/share/qt4/mkspecs/features/unix/gdb_dwarf_index.prf \
-		/usr/share/qt4/mkspecs/features/warn_on.prf \
-		/usr/share/qt4/mkspecs/features/qt.prf \
-		/usr/share/qt4/mkspecs/features/unix/thread.prf \
-		/usr/share/qt4/mkspecs/features/moc.prf \
-		/usr/share/qt4/mkspecs/features/resources.prf \
-		/usr/share/qt4/mkspecs/features/uic.prf \
-		/usr/share/qt4/mkspecs/features/yacc.prf \
-		/usr/share/qt4/mkspecs/features/lex.prf \
-		/usr/share/qt4/mkspecs/features/include_source_dir.prf \
+Makefile: SSD1603_Emulator.pro  /usr/share/qt5/mkspecs/linux-g++-64/qmake.conf /usr/share/qt5/mkspecs/common/unix.conf \
+		/usr/share/qt5/mkspecs/common/linux.conf \
+		/usr/share/qt5/mkspecs/common/gcc-base.conf \
+		/usr/share/qt5/mkspecs/common/gcc-base-unix.conf \
+		/usr/share/qt5/mkspecs/common/g++-base.conf \
+		/usr/share/qt5/mkspecs/common/g++-unix.conf \
+		/usr/share/qt5/mkspecs/qconfig.pri \
+		/usr/share/qt5/mkspecs/features/qt_functions.prf \
+		/usr/share/qt5/mkspecs/features/qt_config.prf \
+		/usr/share/qt5/mkspecs/features/exclusive_builds.prf \
+		/usr/share/qt5/mkspecs/features/default_pre.prf \
+		/usr/share/qt5/mkspecs/features/debug.prf \
+		/usr/share/qt5/mkspecs/features/default_post.prf \
+		/usr/share/qt5/mkspecs/features/shared.prf \
+		/usr/share/qt5/mkspecs/features/unix/gdb_dwarf_index.prf \
+		/usr/share/qt5/mkspecs/features/warn_on.prf \
+		/usr/share/qt5/mkspecs/features/qt.prf \
+		/usr/share/qt5/mkspecs/features/unix/thread.prf \
+		/usr/share/qt5/mkspecs/features/moc.prf \
+		/usr/share/qt5/mkspecs/features/resources.prf \
+		/usr/share/qt5/mkspecs/features/uic.prf \
+		/usr/share/qt5/mkspecs/features/yacc.prf \
+		/usr/share/qt5/mkspecs/features/lex.prf \
+		/usr/share/qt5/mkspecs/features/include_source_dir.prf \
 		/usr/lib/x86_64-linux-gnu/libQtGui.prl \
 		/usr/lib/x86_64-linux-gnu/libQtCore.prl
-	$(QMAKE) -spec /usr/share/qt4/mkspecs/linux-g++-64 CONFIG+=debug -o Makefile SSD1603_Emulator.pro
-/usr/share/qt4/mkspecs/common/unix.conf:
-/usr/share/qt4/mkspecs/common/linux.conf:
-/usr/share/qt4/mkspecs/common/gcc-base.conf:
-/usr/share/qt4/mkspecs/common/gcc-base-unix.conf:
-/usr/share/qt4/mkspecs/common/g++-base.conf:
-/usr/share/qt4/mkspecs/common/g++-unix.conf:
-/usr/share/qt4/mkspecs/qconfig.pri:
-/usr/share/qt4/mkspecs/features/qt_functions.prf:
-/usr/share/qt4/mkspecs/features/qt_config.prf:
-/usr/share/qt4/mkspecs/features/exclusive_builds.prf:
-/usr/share/qt4/mkspecs/features/default_pre.prf:
-/usr/share/qt4/mkspecs/features/debug.prf:
-/usr/share/qt4/mkspecs/features/default_post.prf:
-/usr/share/qt4/mkspecs/features/shared.prf:
-/usr/share/qt4/mkspecs/features/unix/gdb_dwarf_index.prf:
-/usr/share/qt4/mkspecs/features/warn_on.prf:
-/usr/share/qt4/mkspecs/features/qt.prf:
-/usr/share/qt4/mkspecs/features/unix/thread.prf:
-/usr/share/qt4/mkspecs/features/moc.prf:
-/usr/share/qt4/mkspecs/features/resources.prf:
-/usr/share/qt4/mkspecs/features/uic.prf:
-/usr/share/qt4/mkspecs/features/yacc.prf:
-/usr/share/qt4/mkspecs/features/lex.prf:
-/usr/share/qt4/mkspecs/features/include_source_dir.prf:
+	$(QMAKE) -spec /usr/share/qt5/mkspecs/linux-g++-64 CONFIG+=debug -o Makefile SSD1603_Emulator.pro
+/usr/share/qt5/mkspecs/common/unix.conf:
+/usr/share/qt5/mkspecs/common/linux.conf:
+/usr/share/qt5/mkspecs/common/gcc-base.conf:
+/usr/share/qt5/mkspecs/common/gcc-base-unix.conf:
+/usr/share/qt5/mkspecs/common/g++-base.conf:
+/usr/share/qt5/mkspecs/common/g++-unix.conf:
+/usr/share/qt5/mkspecs/qconfig.pri:
+/usr/share/qt5/mkspecs/features/qt_functions.prf:
+/usr/share/qt5/mkspecs/features/qt_config.prf:
+/usr/share/qt5/mkspecs/features/exclusive_builds.prf:
+/usr/share/qt5/mkspecs/features/default_pre.prf:
+/usr/share/qt5/mkspecs/features/debug.prf:
+/usr/share/qt5/mkspecs/features/default_post.prf:
+/usr/share/qt5/mkspecs/features/shared.prf:
+/usr/share/qt5/mkspecs/features/unix/gdb_dwarf_index.prf:
+/usr/share/qt5/mkspecs/features/warn_on.prf:
+/usr/share/qt5/mkspecs/features/qt.prf:
+/usr/share/qt5/mkspecs/features/unix/thread.prf:
+/usr/share/qt5/mkspecs/features/moc.prf:
+/usr/share/qt5/mkspecs/features/resources.prf:
+/usr/share/qt5/mkspecs/features/uic.prf:
+/usr/share/qt5/mkspecs/features/yacc.prf:
+/usr/share/qt5/mkspecs/features/lex.prf:
+/usr/share/qt5/mkspecs/features/include_source_dir.prf:
 /usr/lib/x86_64-linux-gnu/libQtGui.prl:
 /usr/lib/x86_64-linux-gnu/libQtCore.prl:
 qmake:  FORCE
-	@$(QMAKE) -spec /usr/share/qt4/mkspecs/linux-g++-64 CONFIG+=debug -o Makefile SSD1603_Emulator.pro
+	@$(QMAKE) -spec /usr/share/qt5/mkspecs/linux-g++-64 CONFIG+=debug -o Makefile SSD1603_Emulator.pro
 
 dist: 
 	@$(CHK_DIR_EXISTS) .tmp/SSD1603_Emulator1.0.0 || $(MKDIR) .tmp/SSD1603_Emulator1.0.0 
@@ -201,13 +202,13 @@ compiler_moc_header_clean:
 	-$(DEL_FILE) moc_emulator.cpp moc_aboutdialog.cpp moc_mainwindow.cpp
 moc_emulator.cpp: gfxfont.h \
 		emulator.h
-	/usr/lib/x86_64-linux-gnu/qt4/bin/moc $(DEFINES) $(INCPATH) emulator.h -o moc_emulator.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) emulator.h -o moc_emulator.cpp
 
 moc_aboutdialog.cpp: aboutdialog.h
-	/usr/lib/x86_64-linux-gnu/qt4/bin/moc $(DEFINES) $(INCPATH) aboutdialog.h -o moc_aboutdialog.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) aboutdialog.h -o moc_aboutdialog.cpp
 
 moc_mainwindow.cpp: mainwindow.h
-	/usr/lib/x86_64-linux-gnu/qt4/bin/moc $(DEFINES) $(INCPATH) mainwindow.h -o moc_mainwindow.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) mainwindow.h -o moc_mainwindow.cpp
 
 compiler_rcc_make_all: qrc_emulator.cpp qrc_about.cpp
 compiler_rcc_clean:
@@ -217,11 +218,11 @@ qrc_emulator.cpp: emulator.qrc \
 		font/pixelmix.ttf \
 		images/snoopy.png \
 		images/emulator.ico
-	/usr/lib/x86_64-linux-gnu/qt4/bin/rcc -name emulator emulator.qrc -o qrc_emulator.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name emulator emulator.qrc -o qrc_emulator.cpp
 
 qrc_about.cpp: about.qrc \
 		images/snoopy.png
-	/usr/lib/x86_64-linux-gnu/qt4/bin/rcc -name about about.qrc -o qrc_about.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name about about.qrc -o qrc_about.cpp
 
 compiler_image_collection_make_all: qmake_image_collection.cpp
 compiler_image_collection_clean:
@@ -232,13 +233,13 @@ compiler_uic_make_all: ui_emulator.h ui_aboutdialog.h ui_mainwindow.h
 compiler_uic_clean:
 	-$(DEL_FILE) ui_emulator.h ui_aboutdialog.h ui_mainwindow.h
 ui_emulator.h: emulator.ui
-	/usr/lib/x86_64-linux-gnu/qt4/bin/uic emulator.ui -o ui_emulator.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic emulator.ui -o ui_emulator.h
 
 ui_aboutdialog.h: aboutdialog.ui
-	/usr/lib/x86_64-linux-gnu/qt4/bin/uic aboutdialog.ui -o ui_aboutdialog.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic aboutdialog.ui -o ui_aboutdialog.h
 
 ui_mainwindow.h: mainwindow.ui
-	/usr/lib/x86_64-linux-gnu/qt4/bin/uic mainwindow.ui -o ui_mainwindow.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic mainwindow.ui -o ui_mainwindow.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
